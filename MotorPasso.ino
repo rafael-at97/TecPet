@@ -1,6 +1,7 @@
-// Conexoes modulo - Arduino
+// Conexões do "primeiro" motor
 int IN1 = 8;
 int IN2 = 9;
+// Conexões do "segundo" motor
 int IN3 = 10;
 int IN4 = 11;
 
