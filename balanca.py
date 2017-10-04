@@ -6,8 +6,6 @@ import RPi.GPIO as GPIO
 ADDO =     # Input Data
 ADSK =     # Clock
 
-unsigned long convert;
-
 def gpio_setup():
 
    GPIO.setmode(GPIO.BCM)
