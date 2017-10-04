@@ -31,7 +31,7 @@ def ReadCount():
 		# Cuidado pois as manipulacoes de bit no python podem mudar de versão pra versão
 		Count = Count << 1
 		if GPIO.input(ADDO) == True :
-			Count++
+			Count += 1
                 GPIO.output(ADSK, False)
   
   	GPIO.output(ADSK, True)
