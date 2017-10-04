@@ -11,7 +11,7 @@ IN3 =
 IN4 = 
 
 # Tabela de sequência para os passos
-sequence = np.array([[1,0,0,1], [0,1,0,1], [0,1,1,0], [1, 0, 1, 0]])
+sequence = np.array([[1,0,0,1], [0,1,0,1], [0,1,1,0], [1,0,1,0]])
 
 tempo = 10
 
