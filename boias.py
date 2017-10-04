@@ -21,13 +21,13 @@ def main ():
         boia_1 = GPIO.input(Boia_1)
         boia_2 = GPIO.input(Boia_2)
         if boia_1 and boia_2:
-        	# Tanque cheio, definir rotina:
+            # Tanque cheio, definir rotina:
         elif not boia_1 and boia_2:
             # Tanque pela "metade", definir rotina:
         elif boia_1 and not boia_2:
             # Erro nas leituras das boias:
         else:
-        	# Nível de água abaixo da boia inferior, "vazio", definir rotina:    
+            # Nível de água abaixo da boia inferior, "vazio", definir rotina:    
         time.sleep(0.1)
 
 try:
