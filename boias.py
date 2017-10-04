@@ -12,8 +12,8 @@ def gpio_setup():
     # GPIO.BCM   = Número de "Broadcom SOC Channel", escritos depois de "GPIO" no esquemático da placa
     GPIO.setmode(GPIO.BCM)
     # Definição das boias como normalmente abertas
-    GPIO.setup(Boia_1, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(Boia_2, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(Boia_1, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+    GPIO.setup(Boia_2, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
 
 def main ():
     gpio_setup()
