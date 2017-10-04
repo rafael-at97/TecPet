@@ -8,41 +8,51 @@ ADSK =     # Clock
 
 unsigned long convert;
 
-def gpio_setup(){
+def gpio_setup():
 
    GPIO.setmode(GPIO.BCM)
    
    GPIO.setup(ADDO, GPIO.IN, pull_up_down = GPIO.PUD_UP)    # Entrada para receber os dados
    GPIO.setup(ADSK, GPIO.OUT)   # Saída para o clock
-}
-
-def loop(){
-  	convert = ReadCount();
-  
-  	Serial.println(convert);
-  
-  	delay(2000);
-}
 
 # Função para leitura efetiva do módulo ADC
-def ReadCount(){
-	unsigned long Count = 0;
-	unsigned char i;
+def ReadCount():
+	Count = 0
 	  
-	digitalWrite(ADSK, LOW);
+	# Seguindo o datasheet do ADC, definir o clock inicial como 0
+	GPIO.output(ADSK, False)
 	  
-	while(digitalRead(ADDO));
-	  
-	for(i=0;i<24;i++){
-		digitalWrite(ADSK, HIGH);
-		Count = Count << 1;
-		if(digitalRead(ADDO)) Count++;
-                digitalWrite(ADSK, LOW);
-	}
+	# De acordo com o datasheet, enquanto a saida de ADDO for 1, a conversao ainda nao esta pronto
+	while GPIO.input(ADDO):
+	 
+	# Quando a saída estiver pronta, mandar o sinal de clock, um pulso por vez, e esperar a resposta em bits, MSB primeiro
+	for i in range (0, 24):
+		GPIO.output(ADSK, True)
+		# Cuidado pois as manipulacoes de bit no python podem mudar de versão pra versão
+		Count = Count << 1
+		if GPIO.input(ADDO) == True :
+			Count++
+                GPIO.output(ADSK, False)
   
-  	digitalWrite(ADSK, HIGH);
-	Count = Count^0x800000;
-	digitalWrite(ADSK, LOW);
+  	GPIO.output(ADSK, True)
+	Count = Count^0x800000
+	GPIO.output(ADSK, False)
   
-	return(Count);
-}
+	return Count
+
+def main():
+	gpio_setup()
+	
+	while True :
+  		convert = ReadCount()
+  
+  		print(convert)
+  
+  		time.sleep(2000)
+	
+try:
+    main()
+finally:
+    GPIO.cleanup()
+    print("Fim de Programa!")
+#END
